@@ -1,0 +1,29 @@
+diff --git a/fftools/opt_common.c b/fftools/opt_common.c
+index ae5e28a5af..bbe86950b9 100644
+--- a/fftools/opt_common.c
++++ b/fftools/opt_common.c
+@@ -48,6 +48,9 @@
+ #include "libavformat/avformat.h"
+ #include "libavformat/version.h"
+ 
++#include "libavfilter/avfilter.h"
++#include "libavfilter/version.h"
++
+ #include "libavdevice/avdevice.h"
+ #include "libavdevice/version.h"
+ 
+diff --git a/libavcodec/mfenc.c b/libavcodec/mfenc.c
+index bbe78605a9..680ffa01a6 100644
+--- a/libavcodec/mfenc.c
++++ b/libavcodec/mfenc.c
+@@ -59,6 +59,10 @@ typedef struct MFContext {
+ static int mf_choose_output_type(AVCodecContext *avctx);
+ static int mf_setup_context(AVCodecContext *avctx);
+ 
++#if HAVE_WINRT || HAVE_UWP
++DEFINE_GUID(IID_ICodecAPI, 0x901db4c7, 0x31ce, 0x41a2, 0x85,0xdc, 0x8f,0xa0,0xbf,0x41,0xb8,0xda);
++#endif
++
+ #define MF_TIMEBASE (AVRational){1, 10000000}
+ // Sentinel value only used by us.
+ #define MF_INVALID_TIME AV_NOPTS_VALUE
